@@ -45,7 +45,9 @@ docker build -t eloquage-typephp-builder -f packages/typephp-builder/Dockerfile 
 ELOQUAGE_TYPEPHP_IMAGE=eloquage-typephp-builder docker/typephp/build-package.sh vector
 ```
 
-`native/` may be empty. Do not treat stub `src/` as a proven TypePHP compile until `tpc` succeeds in that image.
+`native/` is currently empty. No native compile is claimed for the current
+implementation: pure PHP in `src/` is the required behavior. Do not treat
+`src/` as a proven TypePHP compile until `tpc` succeeds in that image.
 
 ## Optional native for consumers
 

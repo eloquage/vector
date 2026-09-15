@@ -14,13 +14,16 @@ In-process vector math for PHP: cosine, dot, L2, top-k, and batch similarity.
 - `TYPEPHP.md` — extension build contract
 - `project.yml.example` — TypePHP project config (copy to gitignored `project.yml`)
 
-## Commands
+## Setup and commands
 
 ```bash
+composer install
 composer test
 composer format
 vendor/bin/pest --coverage --min=90
 ```
+
+Run commands from `packages/vector`. Keep coverage at or above 90% for `src/`.
 
 ## Conventions
 
@@ -42,14 +45,31 @@ docker run --rm -v "$PWD":/src -w /src \
   sh -c 'test -f project.yml || cp project.yml.example project.yml; tpc.php project.yml'
 ```
 
-See `TYPEPHP.md`. Linux containers only for the shared builder. Optional native install channels: setup-php, docker-php-ext-install, PECL, Windows DLL.
+See `TYPEPHP.md`. Linux containers only for the shared builder.
+
+## Debugging
+
+- Reproduce behavior through `Eloquage\Vector\Vector`; do not call private
+  helpers from tests or consumers.
+- Start with `composer test`, then run the smallest failing Pest filter. Use
+  `php -l src/Vector.php` for syntax-only diagnosis.
+- The root Laravel application is only a harness. Verify its `/` panel with
+  `php artisan test --filter=EloquageWelcomeTest` from the repository root.
+
+## Security and scope
+
+- Keep this package free of HTTP, persistence, database, Illuminate, and other
+  application integrations.
+- Do not log or commit input data that may contain sensitive embeddings.
+- Do not add Composer dependencies for TypePHP; use the documented Docker
+  builder only.
 
 ## Harness demo
 
 Public behavior must be exercisable from the laravel-x welcome page (`/` → `resources/views/welcome.blade.php`) with a Feature test.
 
-## Humans vs agents
+## Document ownership
 
-- README — install/usage for humans
-- This file — agent context
-- TYPEPHP.md — AOT / Docker / release
+- README — install and usage for consumers
+- This file — agent setup, development, debugging, and security context
+- TYPEPHP.md — AOT, Docker, and release contract
