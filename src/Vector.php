@@ -18,9 +18,9 @@ final class Vector
     /**
      * Measure two equal-dimension vectors.
      *
-     * @param list<float> $left
-     * @param list<float> $right
-     * @param 'dot'|'l2'|'cosine' $metric
+     * @param  list<float>  $left
+     * @param  list<float>  $right
+     * @param  'dot'|'l2'|'cosine'  $metric
      */
     public function measure(array $left, array $right, string $metric = 'cosine'): float
     {
@@ -44,7 +44,7 @@ final class Vector
     /**
      * Return a vector with unit L2 norm.
      *
-     * @param list<float> $vector
+     * @param  list<float>  $vector
      * @return list<float>
      */
     public function normalize(array $vector): array
@@ -60,8 +60,8 @@ final class Vector
      * A vector query returns ranked records. A matrix query returns an m x n
      * score matrix in input order.
      *
-     * @param list<float>|list<list<float>> $queries
-     * @param list<list<float>> $corpus
+     * @param  list<float>|list<list<float>>  $queries
+     * @param  list<list<float>>  $corpus
      * @return list<array{index: int, score: float}>|list<list<float>>
      */
     public function similarity(array $queries, array $corpus, ?int $topK = null): array
@@ -138,8 +138,8 @@ final class Vector
     }
 
     /**
-     * @param list<float> $left
-     * @param list<float> $right
+     * @param  list<float>  $left
+     * @param  list<float>  $right
      */
     private function dotProduct(array $left, array $right): float
     {
@@ -163,8 +163,8 @@ final class Vector
     }
 
     /**
-     * @param list<float> $left
-     * @param list<float> $right
+     * @param  list<float>  $left
+     * @param  list<float>  $right
      */
     private function l2Distance(array $left, array $right): float
     {
@@ -190,8 +190,8 @@ final class Vector
     }
 
     /**
-     * @param list<float> $left
-     * @param list<float> $right
+     * @param  list<float>  $left
+     * @param  list<float>  $right
      */
     private function cosineSimilarity(array $left, array $right): float
     {
@@ -204,7 +204,7 @@ final class Vector
     /**
      * Scale before squaring so normalization remains finite for large values.
      *
-     * @param list<float> $vector
+     * @param  list<float>  $vector
      * @return list<float>
      */
     private function unitVector(array $vector, string $label): array
@@ -248,7 +248,7 @@ final class Vector
     }
 
     /**
-     * @param list<float> $vector
+     * @param  list<float>  $vector
      */
     private function stableNorm(array $vector): float
     {
@@ -279,7 +279,7 @@ final class Vector
     }
 
     /**
-     * @param list<float> $vector
+     * @param  list<float>  $vector
      */
     private function assertNonZeroVector(array $vector, string $label): void
     {
@@ -293,7 +293,7 @@ final class Vector
     }
 
     /**
-     * @param list<float> $vector
+     * @param  list<float>  $vector
      * @return list<float>
      */
     private function validateVector(array $vector, string $label): array
@@ -316,7 +316,7 @@ final class Vector
     }
 
     /**
-     * @param list<list<float>> $matrix
+     * @param  list<list<float>>  $matrix
      * @return list<list<float>>
      */
     private function validateMatrix(array $matrix, string $label): array
@@ -339,8 +339,8 @@ final class Vector
     }
 
     /**
-     * @param list<float> $left
-     * @param list<float> $right
+     * @param  list<float>  $left
+     * @param  list<float>  $right
      */
     private function assertSameDimension(array $left, array $right): void
     {
@@ -350,8 +350,8 @@ final class Vector
     }
 
     /**
-     * @param list<list<float>> $queries
-     * @param list<list<float>> $corpus
+     * @param  list<list<float>>  $queries
+     * @param  list<list<float>>  $corpus
      */
     private function assertCorpusDimensions(array $queries, array $corpus): void
     {
@@ -369,7 +369,7 @@ final class Vector
     }
 
     /**
-     * @param list<list<float>> $queries
+     * @param  list<list<float>>  $queries
      */
     private function assertQueryDimensions(array $queries): void
     {
@@ -383,7 +383,7 @@ final class Vector
     }
 
     /**
-     * @param list<list<float>> $rows
+     * @param  list<list<float>>  $rows
      * @return list<list<float>>
      */
     private function normalizeRows(array $rows, string $label): array

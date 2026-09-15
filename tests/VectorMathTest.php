@@ -3,7 +3,7 @@
 use Eloquage\Vector\Vector;
 
 it('measures dot, euclidean l2, and cosine similarity', function () {
-    $vector = new Vector();
+    $vector = new Vector;
 
     expect($vector->measure([3.0, 4.0], [0.0, 4.0], 'dot'))->toBe(16.0)
         ->and($vector->measure([3.0, 4.0], [0.0, 4.0], 'l2'))->toBe(3.0)
@@ -11,14 +11,14 @@ it('measures dot, euclidean l2, and cosine similarity', function () {
 });
 
 it('normalizes vectors and ignores common positive magnitude for cosine', function () {
-    $vector = new Vector();
+    $vector = new Vector;
 
     expect($vector->normalize([3, 4]))->toEqualCanonicalizing([0.6, 0.8])
         ->and(abs($vector->measure([3, 4], [30, 40]) - 1.0))->toBeLessThan(1.0e-12);
 });
 
 it('keeps large finite normalization stable', function () {
-    $vector = new Vector();
+    $vector = new Vector;
     $large = [PHP_FLOAT_MAX, PHP_FLOAT_MAX];
 
     expect(abs($vector->normalize($large)[0] - sqrt(0.5)))->toBeLessThan(1.0e-12)
@@ -26,7 +26,7 @@ it('keeps large finite normalization stable', function () {
 });
 
 it('fails closed when direct arithmetic overflows', function () {
-    $vector = new Vector();
+    $vector = new Vector;
 
     expect(fn () => $vector->measure([PHP_FLOAT_MAX], [PHP_FLOAT_MAX], 'dot'))
         ->toThrow(OverflowException::class)
@@ -35,7 +35,7 @@ it('fails closed when direct arithmetic overflows', function () {
 });
 
 it('rejects invalid metrics, malformed vectors, and dimension mismatches', function () {
-    $vector = new Vector();
+    $vector = new Vector;
 
     expect(fn () => $vector->measure([1], [1], 'manhattan'))
         ->toThrow(InvalidArgumentException::class)
@@ -58,7 +58,7 @@ it('rejects invalid metrics, malformed vectors, and dimension mismatches', funct
 });
 
 it('rejects zero vectors for scalar operations', function () {
-    $vector = new Vector();
+    $vector = new Vector;
 
     expect(fn () => $vector->measure([0, 0], [1, 0], 'dot'))
         ->toThrow(DomainException::class)
@@ -69,7 +69,7 @@ it('rejects zero vectors for scalar operations', function () {
 });
 
 it('returns deterministic exact top-k rankings and clamps k to the corpus', function () {
-    $vector = new Vector();
+    $vector = new Vector;
     $corpus = [[1, 0], [0, 1], [-1, 0], [1, 0]];
 
     $all = $vector->similarity([1, 0], $corpus);
@@ -84,7 +84,7 @@ it('returns deterministic exact top-k rankings and clamps k to the corpus', func
 });
 
 it('rejects invalid top-k and corpus/query shapes', function () {
-    $vector = new Vector();
+    $vector = new Vector;
 
     expect(fn () => $vector->similarity([1, 0], [[1, 0]], 0))
         ->toThrow(InvalidArgumentException::class)
@@ -101,7 +101,7 @@ it('rejects invalid top-k and corpus/query shapes', function () {
 });
 
 it('returns empty corpus and batch shapes without changing input order', function () {
-    $vector = new Vector();
+    $vector = new Vector;
 
     expect($vector->similarity([1, 0], []))->toBe([])
         ->and($vector->similarity([[1, 0], [0, 1]], []))->toBe([[], []])
@@ -114,7 +114,7 @@ it('returns empty corpus and batch shapes without changing input order', functio
 });
 
 it('makes batch scores pairwise-equivalent to scalar cosine', function () {
-    $vector = new Vector();
+    $vector = new Vector;
     $queries = [[1, 2], [3, 4]];
     $corpus = [[5, 6], [7, 8]];
     $batch = $vector->similarity($queries, $corpus);
@@ -126,7 +126,7 @@ it('makes batch scores pairwise-equivalent to scalar cosine', function () {
 });
 
 it('rejects zero rows in similarity inputs', function () {
-    $vector = new Vector();
+    $vector = new Vector;
 
     expect(fn () => $vector->similarity([0, 0], [[1, 0]]))
         ->toThrow(DomainException::class)
