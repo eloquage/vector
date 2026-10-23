@@ -1,5 +1,7 @@
 # eloquage/vector
 
+<p align="center"><img src="art/banner.png" alt="eloquage/vector: vector math, cosine similarity, and top-k" width="100%"></p>
+
 Framework-agnostic, in-process vector math for PHP 8.3+: dot product,
 square-rooted Euclidean distance, cosine similarity, L2 normalization, and
 exact top-k or batch similarity. Pure PHP is the required implementation;
